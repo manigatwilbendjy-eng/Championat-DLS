@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Détails du Match - DLS 2026</title>
+  <style>
+    body {
+      background-image: url('Dls2026.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+    }
+
+    .container {
+      background: rgba(10, 10, 15, 0.95);
+      width: 95%;
+      max-width: 750px;
+      padding: 25px;
+      border-radius: 20px;
+      border: 1px solid rgba(0, 123, 255, 0.3);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    }
+
+    .header { text-align: center; margin-bottom: 25px; }
+    .date-badge { background: #007bff; padding: 5px 15px; border-radius: 15px; font-size: 0.8rem; font-weight: bold; }
+    .score-title { font-size: 2.5rem; margin: 15px 0; font-weight: 900; letter-spacing: 3px; }
+
+    /* Cadres Equipes */
+    .teams-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
+    .team-card { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 15px; text-align: center; border-bottom: 4px solid; }
+    .home { border-color: #007bff; }
+    .away { border-color: #ff4d4d; }
+
+    .buteurs { text-align: left; font-size: 0.85rem; color: #bbb; min-height: 60px; margin-top: 10px; }
+    .note-badge { background: rgba(255, 215, 0, 0.1); border: 1px solid gold; padding: 8px; border-radius: 10px; font-size: 0.8rem; margin-top: 10px; }
+
+    /* Barre de Possession */
+    .poss-container { margin: 30px 0; text-align: center; }
+    .poss-bar { height: 14px; display: flex; border-radius: 7px; overflow: hidden; margin: 10px 0; background: #222; }
+    .p-home { background: #007bff; }
+    .p-away { background: #ff4d4d; }
+
+    /* Tableau Stats */
+    .table-stats { width: 100%; border-collapse: collapse; }
+    .table-stats td { padding: 12px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .stat-label { text-transform: uppercase; font-size: 0.7rem; color: #777; font-weight: bold; }
+    .val-h { color: #007bff; font-weight: bold; font-size: 1.1rem; }
+    .val-a { color: #ff4d4d; font-weight: bold; font-size: 1.1rem; }
+
+    .btn-retour {
+      display: block; width: fit-content; margin: 25px auto 0;
+      padding: 12px 35px; background: #007bff; color: white;
+      text-decoration: none; border-radius: 50px; font-weight: bold;
+      transition: 0.3s;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="mainContent">
+    </div>
+
+<script src="data.js"></script>
+<script>
+    // Récupérer l'ID du match dans l'URL (ex: stats.html?match=1)
+    const urlParams = new URLSearchParams(window.location.search);
+    const matchId = urlParams.get('match');
+    const m = dlsData.matchs[matchId];
+
+    const content = document.getElementById('mainContent');
+
+    if (m) {
+        content.innerHTML = `
+            <div class="header">
+                <span class="date-badge">${m.date}</span>
+                <div class="score-title">${m.score1} — ${m.score2}</div>
+            </div>
+
+            <div class="teams-grid">
+                <div class="team-card home">
+                    <h3 style="color:#007bff; margin:0;">${m.eq1}</h3>
+                    <div class="buteurs">${m.buteurs1}</div>
+                    <div class="note-badge">⭐ NOTE MAX: <span style="color:gold;">${m.note1}</span></div>
+                </div>
+                <div class="team-card away">
+                    <h3 style="color:#ff4d4d; margin:0;">${m.eq2}</h3>
+                    <div class="buteurs">${m.buteurs2}</div>
+                    <div class="note-badge">⭐ NOTE MAX: <span style="color:gold;">${m.note2}</span></div>
+                </div>
+            </div>
+
+            <div class="poss-container">
+                <div style="display:flex; justify-content:space-between; font-weight:bold;">
+                    <span>${m.poss}%</span>
+                    <span style="letter-spacing:3px; font-size:0.7rem; color:#888;">POSSESSION</span>
+                    <span>${100 - m.poss}%</span>
+                </div>
+                <div class="poss-bar">
+                    <div class="p-home" style="width: ${m.poss}%"></div>
+                    <div class="p-away" style="width: ${100 - m.poss}%"></div>
+                </div>
+            </div>
+
+            <table class="table-stats">
+                <tr><td class="val-h">${m.tirs[0]}</td><td class="stat-label">Tirs Total</td><td class="val-a">${m.tirs[1]}</td></tr>
+                <tr><td class="val-h">${m.cadres[0]}</td><td class="stat-label">Tirs Cadrés</td><td class="val-a">${m.cadres[1]}</td></tr>
+                <tr><td class="val-h">${m.passes}</td><td class="stat-label">Précision Passes</td><td class="val-a">${m.passes[1]}</td></tr>
+                <tr><td class="val-h">${m.tacles[0]}</td><td class="stat-label">Tacles</td><td class="val-a">${m.tacles[1]}</td></tr>
+                <tr><td class="val-h">${m.fautes[0]}</td><td class="stat-label">Fautes</td><td class="val-a">${m.fautes[1]}</td></tr>
+            </table>
+
+            <a href="matchs.html" class="btn-retour">⬅️ RETOUR AUX MATCHS</a>
+        `;
+    } else {
+        content.innerHTML = `<h2 style="text-align:center;">Match non trouvé</h2><a href="matchs.html" class="btn-retour">Retour</a>`;
+    }
+</script>
+
+</body>
+</html>

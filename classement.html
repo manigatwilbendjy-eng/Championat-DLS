@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Classement - DLS 2026</title>
+    <style>
+        body { background-image: url('Dls2026.jpg'); background-size: cover; background-attachment: fixed; font-family: sans-serif; color: white; display: flex; flex-direction: column; align-items: center; }
+        .container { width: 95%; max-width: 800px; background: rgba(0,0,0,0.9); margin: 40px 0; padding: 20px; border-radius: 20px; border: 1px solid #007bff; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: rgba(0,123,255,0.2); color: #007bff; padding: 12px; font-size: 0.8rem; }
+        td { padding: 12px; text-align: center; border-bottom: 1px solid #222; }
+        .team-link { color: white; text-decoration: none; font-weight: bold; }
+        .pts { color: #007bff; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📊 CLASSEMENT GÉNÉRAL</h2>
+        <table>
+            <thead>
+                <tr><th>Pos</th><th style="text-align:left;">Équipe</th><th>J</th><th>G</th><th>N</th><th>P</th><th>Pts</th></tr>
+            </thead>
+            <tbody id="classementBody"></tbody>
+        </table>
+        <br><a href="index.html" style="color:#007bff; text-decoration:none;">🏠 Retour Accueil</a>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        const tbody = document.getElementById('classementBody');
+        if (typeof dlsData !== 'undefined') {
+            const liste = Object.keys(dlsData.equipes).map(id => ({id, ...dlsData.equipes[id]}));
+            liste.sort((a, b) => b.pts - a.pts);
+            liste.forEach((eq, i) => {
+                const row = `<tr>
+                    <td>${i+1}</td>
+                    <td style="text-align:left;"><a class="team-link" href="equipe.html?id=${eq.id}">${eq.nom}</a></td>
+                    <td>${eq.j}</td><td>${eq.g}</td><td>${eq.n}</td><td>${eq.p}</td>
+                    <td class="pts">${eq.pts}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+        }
+    </script>
+</body>
+</html>

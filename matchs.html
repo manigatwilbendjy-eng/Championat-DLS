@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendrier - DLS 2026</title>
+    <style>
+        body {
+            background-image: url('Dls2026.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 650px;
+            background: rgba(0, 0, 0, 0.9);
+            margin: 30px 0;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #007bff;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+        }
+
+        h2 {
+            text-align: center;
+            color: #007bff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            font-size: 0.9rem;
+            color: #888;
+            text-transform: uppercase;
+            margin-top: 30px;
+            border-left: 4px solid #007bff;
+            padding-left: 10px;
+        }
+
+        .match-card {
+            background: rgba(255, 255, 255, 0.05);
+            margin: 12px 0;
+            padding: 18px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .match-card:hover {
+            background: rgba(0, 123, 255, 0.15);
+            border-color: #007bff;
+            transform: translateY(-2px);
+        }
+
+        .team-names { font-weight: bold; font-size: 1.1rem; }
+        .match-date { font-size: 0.8rem; color: #777; display: block; margin-top: 5px; }
+
+        .score-badge {
+            background: #007bff;
+            padding: 6px 15px;
+            border-radius: 8px;
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+
+        .next-badge {
+            background: #333;
+            padding: 6px 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        /* BOUTON RETOUR ACCUEIL */
+        .footer-nav {
+            margin: 20px 0 40px;
+            text-align: center;
+        }
+
+        .btn-home {
+            display: inline-block;
+            padding: 12px 35px;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 2px solid #007bff;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-home:hover {
+            background: #007bff;
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🏟️ Matchs DLS 2026</h2>
+
+        <h3>✅ Matchs Terminés</h3>
+        <div id="listeTermines"></div>
+
+        <h3>📅 Prochains Matchs</h3>
+        <div id="listeProchains"></div>
+    </div>
+
+    <div class="footer-nav">
+        <a href="index.html" class="btn-home">🏠 Retour à l'accueil</a>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        const terminesDiv = document.getElementById('listeTermines');
+        const prochainsDiv = document.getElementById('listeProchains');
+
+        if (typeof dlsData !== 'undefined' && dlsData.matchs) {
+            dlsData.matchs.forEach(m => {
+                const card = document.createElement('div');
+                card.className = 'match-card';
+
+                if (m.statut === "termine") {
+                    // Si terminé, clic vers les stats
+                    card.onclick = () => window.location.href = `stats.html?match=${m.id}`;
+                    card.innerHTML = `
+                        <div>
+                            <span class="team-names">${m.eq1} vs ${m.eq2}</span>
+                            <span class="match-date">📅 ${m.date} (Terminé)</span>
+                        </div>
+                        <div class="score-badge">${m.score1} - ${m.score2}</div>
+                    `;
+                    terminesDiv.appendChild(card);
+                } else {
+                    // Si prochain match, pas de lien de stats
+                    card.style.cursor = "default";
+                    card.innerHTML = `
+                        <div>
+                            <span class="team-names">${m.eq1} vs ${m.eq2}</span>
+                            <span class="match-date">📅 ${m.date}</span>
+                        </div>
+                        <div class="next-badge">🕒 ${m.heure}</div>
+                    `;
+                    prochainsDiv.appendChild(card);
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

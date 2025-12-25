@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil - DLS 2026</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Style spécifique pour l'accueil */
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .accueil-container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+
+    .menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .menu-links a {
+      text-decoration: none;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 15px 50px;
+      border: 2px solid white;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .menu-links a:hover {
+      background: white;
+      color: black;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="accueil-container">
+    <h1>DLS 2026</h1>
+    <nav class="menu-links">
+      <a href="classement.html">📊 CLASSEMENT</a>
+      <a href="matchs.html">📅 MATCHS & RESULTATS</a>
+       <a href="envoyer.html">📤 Envoyer Score</a>
+      <a href="recompenses.html">🎖 RÉCOMPENSES</a>
+    </nav>
+  </div>
+
+</body>
+</html>

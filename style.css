@@ -1,0 +1,89 @@
+body {
+  background-image: url('Dls2026.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Pour que le fond ne bouge pas au scroll */
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0; padding: 0;
+}
+
+.container {
+  background-color: rgba(0, 0, 0, 0.8); /* Fond noir transparent */
+  margin: 50px auto;
+  padding: 30px;
+  max-width: 800px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+h1, h2 { text-align: center; text-shadow: 2px 2px 4px black; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 12px;
+  text-align: center;
+}
+
+th { background-color: rgba(255, 255, 255, 0.1); }
+
+.btn-retour {
+  display: block;
+  width: fit-content;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background: white;
+  color: black;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.stats-box {
+  background: rgba(0,0,0,0.5);
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.bar-container {
+  margin: 15px 0;
+  text-align: left;
+}
+
+.bar {
+  background: #444;
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.btn-envoyer {
+  background: #28a745;
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.btn-detail {
+  background: #007bff;
+  color: white;
+  padding: 5px 12px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 0.9em;
+}
+
+.btn-detail:hover {
+  background: #0056b3;
+}

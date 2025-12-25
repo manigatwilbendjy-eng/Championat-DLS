@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Envoyer un Résultat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>📤 Envoyer une Preuve de Match</h2>
+    <form id="uploadForm">
+      <label>Nom de ton équipe :</label>
+      <input type="text" id="nomEquipe" placeholder="Ex: BETA FC" required>
+      
+      <label>Équipe adverse :</label>
+      <input type="text" id="adversaire" placeholder="Ex: JD KING 09" required>
+      
+      <label>Score final :</label>
+      <input type="text" id="score" placeholder="Ex: 5-0" required>
+
+      <label>Capture d'écran (Preuve) :</label>
+      <input type="file" id="photoPreuve" accept="image/*" required>
+      
+      <button type="submit" class="btn-envoyer">Publier le résultat</button>
+    </form>
+    <a href="index.html" class="btn-retour">🏠 Retour</a>
+  </div>
+
+  <script>
+    document.getElementById('uploadForm').onsubmit = function(e) {
+      e.preventDefault();
+      alert("Résultat envoyé avec succès ! Il apparaîtra dans l'onglet Matchs après validation.");
+      // Ici, on pourrait ajouter du code pour envoyer l'image vers une base de données
+    };
+  </script>
+</body>
+</html>

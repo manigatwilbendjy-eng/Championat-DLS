@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche Club - DLS 2026</title>
+    <style>
+        body {
+            background-image: url('Dls2026.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .profile-card {
+            background: rgba(18, 18, 18, 0.98);
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 123, 255, 0.3);
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.9);
+        }
+
+        /* En-tête : Logo et Nom */
+        .header-box { margin-bottom: 25px; }
+        .logo-circle {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid #007bff;
+            margin: 0 auto 15px;
+            padding: 5px;
+            background: #111;
+            object-fit: contain;
+        }
+        .team-name { font-size: 2rem; font-weight: 900; color: #007bff; margin: 0; text-transform: uppercase; }
+        
+        .manager-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 15px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        /* Forme Récente */
+        .section-title { font-size: 0.8rem; text-transform: uppercase; color: #888; letter-spacing: 2px; margin: 25px 0 10px; }
+        .forme-row { display: flex; justify-content: center; gap: 8px; }
+        .dot { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.8rem; }
+        .V { background: #28a745; } /* Victoire */
+        .N { background: #ffc107; color: #000; } /* Nul */
+        .D { background: #dc3545; } /* Défaite */
+
+        /* Liste des Matchs */
+        .history-list { margin-top: 25px; text-align: left; }
+        .match-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.3s;
+            border-left: 4px solid transparent;
+        }
+        .match-item:hover { background: rgba(0, 123, 255, 0.1); border-left-color: #007bff; }
+        .match-info { font-size: 0.9rem; }
+        .match-score { font-weight: bold; color: #007bff; }
+
+        .btn-back {
+            display: inline-block;
+            margin-top: 25px;
+            color: #888;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-card" id="profileContent">
+    </div>
+
+<script src="data.js"></script>
+<script>
+    // 1. On récupère l'ID passé dans l'adresse (ex: equipe.html?id=1)
+    const urlParams = new URLSearchParams(window.location.search);
+    const teamId = urlParams.get('id');
+    const team = dlsData.equipes[teamId];
+
+    const container = document.getElementById('profileContent');
+
+    if (team) {
+        // 2. On affiche les infos de l'équipe
+        container.innerHTML = `
+            <div class="header-box">
+                <img src="${team.logo}" class="logo-circle" onerror="this.src='https://via.placeholder.com/100/111/007bff?text=FC'">
+                <h1 class="team-name">${team.nom}</h1>
+                <div class="manager-tag">👔 Manager : <b>${team.manager}</b></div>
+            </div>
+
+            <div class="section-title">Forme Récente</div>
+            <div class="forme-row">
+                ${team.forme.map(res => `<div class="dot ${res}">${res}</div>`).join('')}
+            </div>
+
+            <div class="section-title">Derniers Matchs (cliquer pour détails)</div>
+            <div class="history-list">
+                <div class="match-item" onclick="window.location.href='stats.html?match=1'">
+                    <div class="match-info">📅 24/12 vs JD KING 09</div>
+                    <div class="match-score">5 - 0 👁️</div>
+                </div>
+                <div class="match-item" onclick="window.location.href='stats.html?match=2'">
+                    <div class="match-info">📅 20/12 vs TITANS FC</div>
+                    <div class="match-score">3 - 1 👁️</div>
+                </div>
+            </div>
+
+            <a href="classement.html" class="btn-back">⬅️ Retour au Classement</a>
+        `;
+    } else {
+        container.innerHTML = "<h1>Équipe non trouvée</h1><a href='classement.html'>Retour</a>";
+    }
+</script>
+
+</body>
+</html>
