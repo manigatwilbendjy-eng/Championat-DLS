@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendrier - DLS 2026</title>
+    
+    <script>
+        if (sessionStorage.getItem('dls_auth') !== 'true') {
+            window.location.href = "index.html";
+        }
+    </script>
+
     <style>
         body {
-            background-image: url('Dls2026.jpg');
+            background-image: url('Dls.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -21,10 +28,10 @@
 
         .container {
             width: 90%;
-            max-width: 650px;
+            max-width: 600px;
             background: rgba(0, 0, 0, 0.9);
             margin: 30px 0;
-            padding: 25px;
+            padding: 20px;
             border-radius: 20px;
             border: 1px solid #007bff;
             box-shadow: 0 10px 40px rgba(0,0,0,0.8);
@@ -37,100 +44,85 @@
             letter-spacing: 2px;
             border-bottom: 2px solid #333;
             padding-bottom: 15px;
-            margin-bottom: 25px;
         }
 
         h3 {
+            color: #007bff;
             font-size: 0.9rem;
-            color: #888;
+            margin-top: 25px;
             text-transform: uppercase;
-            margin-top: 30px;
             border-left: 4px solid #007bff;
             padding-left: 10px;
         }
 
         .match-card {
             background: rgba(255, 255, 255, 0.05);
-            margin: 12px 0;
-            padding: 18px;
-            border-radius: 15px;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
             transition: 0.3s;
-            border: 1px solid transparent;
         }
 
         .match-card:hover {
             background: rgba(0, 123, 255, 0.15);
-            border-color: #007bff;
-            transform: translateY(-2px);
+            transform: scale(1.02);
         }
 
-        .team-names { font-weight: bold; font-size: 1.1rem; }
-        .match-date { font-size: 0.8rem; color: #777; display: block; margin-top: 5px; }
+        .team-names { font-weight: bold; }
+        .match-date { font-size: 0.75rem; color: #777; display: block; }
 
         .score-badge {
             background: #007bff;
-            padding: 6px 15px;
-            border-radius: 8px;
-            font-weight: 900;
-            font-size: 1.1rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-weight: bold;
         }
 
         .next-badge {
             background: #333;
-            padding: 6px 15px;
-            border-radius: 8px;
-            font-size: 0.85rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
             color: #aaa;
         }
 
-        /* BOUTON RETOUR ACCUEIL */
-        .footer-nav {
-            margin: 20px 0 40px;
-            text-align: center;
-        }
-
         .btn-home {
-            display: inline-block;
-            padding: 12px 35px;
+            margin: 20px 0 40px;
+            padding: 10px 30px;
             background: transparent;
             color: white;
             text-decoration: none;
             border-radius: 50px;
-            border: 2px solid #007bff;
+            border: 1px solid #007bff;
             font-weight: bold;
             transition: 0.3s;
         }
 
-        .btn-home:hover {
-            background: #007bff;
-            box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
-        }
+        .btn-home:hover { background: #007bff; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2>🏟️ Matchs DLS 2026</h2>
+        <h2>🏟️ MATCHS DLS 2026</h2>
 
         <h3>✅ Matchs Terminés</h3>
-        <div id="listeTermines"></div>
+        <div id="listTermines"></div>
 
         <h3>📅 Prochains Matchs</h3>
-        <div id="listeProchains"></div>
+        <div id="listProchains"></div>
     </div>
 
-    <div class="footer-nav">
-        <a href="index.html" class="btn-home">🏠 Retour à l'accueil</a>
-    </div>
+    <a href="index.html" class="btn-home">🏠 Menu Principal</a>
 
     <script src="data.js"></script>
     <script>
-        const terminesDiv = document.getElementById('listeTermines');
-        const prochainsDiv = document.getElementById('listeProchains');
+        const terminesDiv = document.getElementById('listTermines');
+        const prochainsDiv = document.getElementById('listProchains');
 
         if (typeof dlsData !== 'undefined' && dlsData.matchs) {
             dlsData.matchs.forEach(m => {
@@ -138,18 +130,16 @@
                 card.className = 'match-card';
 
                 if (m.statut === "termine") {
-                    // Si terminé, clic vers les stats
                     card.onclick = () => window.location.href = `stats.html?match=${m.id}`;
                     card.innerHTML = `
                         <div>
                             <span class="team-names">${m.eq1} vs ${m.eq2}</span>
-                            <span class="match-date">📅 ${m.date} (Terminé)</span>
+                            <span class="match-date">📅 ${m.date}</span>
                         </div>
                         <div class="score-badge">${m.score1} - ${m.score2}</div>
                     `;
                     terminesDiv.appendChild(card);
                 } else {
-                    // Si prochain match, pas de lien de stats
                     card.style.cursor = "default";
                     card.innerHTML = `
                         <div>

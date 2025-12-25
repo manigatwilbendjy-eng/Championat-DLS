@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envoyer Score & Preuve - DLS 2026</title>
+    <style>
+        body {
+            background-image: url('Dls.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+        }
+        .form-card {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 30px;
+            border-radius: 25px;
+            border: 2px solid #007bff;
+            width: 90%;
+            max-width: 400px;
+        }
+        h2 { color: #007bff; text-align: center; text-transform: uppercase; margin-bottom: 20px; }
+        label { display: block; margin-top: 15px; font-size: 0.85rem; color: #007bff; font-weight: bold; }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            background: rgba(255,255,255,0.05);
+            color: white;
+            box-sizing: border-box;
+        }
+        /* Style spécial pour le bouton de fichier */
+        input[type="file"] {
+            padding: 10px;
+            background: #222;
+            border: 1px dashed #007bff;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover { background: #0056b3; }
+        .btn-back { display: block; text-align: center; margin-top: 20px; color: #888; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div class="form-card">
+        <h2>📤 ENVOYER LE SCORE</h2>
+        
+        <form action="https://getform.io/f/NOM_DE_TON_FORMULAIRE" method="POST" enctype="multipart/form-data">
+            
+            <label>NOM DE TON ÉQUIPE</label>
+            <input type="text" name="manager" required>
+
+            <label>SCORE FINAL</label>
+            <input type="text" name="score" placeholder="Ex: 3-0" required>
+
+            <label>📸 CAPTURE D'ÉCRAN (PREUVE)</label>
+            <input type="file" name="file" accept="image/*" required>
+
+            <label>DÉTAILS (Optionnel)</label>
+            <textarea name="message" rows="3"></textarea>
+
+            <button type="submit">ENVOYER LA PREUVE</button>
+        </form>
+
+        <a href="index.html" class="btn-back">⬅️ Retour Accueil</a>
+    </div>
+
+</body>
+</html>

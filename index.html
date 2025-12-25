@@ -1,73 +1,158 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accueil - DLS 2026</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    /* Style spécifique pour l'accueil */
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DLS 2026 - Accueil</title>
+    <style>
+        body {
+            background-image: url('Dls.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
 
-    .accueil-container {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 40px;
-      border-radius: 20px;
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
+        /* Boîte de Connexion */
+        .card {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 320px;
+            backdrop-filter: blur(10px);
+        }
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 30px;
-      letter-spacing: 2px;
-      color: #fff;
-    }
+        h1 { 
+            font-size: 2.5rem; 
+            margin-bottom: 25px; 
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 50px;
+            border: 1px solid #444;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-align: center;
+            box-sizing: border-box;
+        }
 
-    .menu-links {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-    .menu-links a {
-      text-decoration: none;
-      color: white;
-      font-size: 1.5rem;
-      font-weight: bold;
-      padding: 15px 50px;
-      border: 2px solid white;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      background: rgba(255, 255, 255, 0.05);
-    }
+        /* Menu Principal (Affiché après code) */
+        #mainMenu { display: none; }
 
-    .menu-links a:hover {
-      background: white;
-      color: black;
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-    }
-  </style>
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 15px;
+            margin: 12px 0;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 2px solid white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            transition: 0.3s;
+            box-sizing: border-box;
+        }
+
+        .menu-btn:hover {
+            background: white;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        .emoji { margin-right: 10px; font-size: 1.3rem; }
+    </style>
 </head>
 <body>
 
-  <div class="accueil-container">
-    <h1>DLS 2026</h1>
-    <nav class="menu-links">
-      <a href="classement.html">📊 CLASSEMENT</a>
-      <a href="matchs.html">📅 MATCHS & RESULTATS</a>
-       <a href="envoyer.html">📤 Envoyer Score</a>
-      <a href="recompenses.html">🎖 RÉCOMPENSES</a>
-    </nav>
-  </div>
+    <div id="loginSection" class="card">
+        <h1>DLS 2026</h1>
+        <input type="password" id="passCode" placeholder="Code d'accès Manager">
+        <button class="btn-login" onclick="validerConnexion()">ENTRER</button>
+    </div>
+
+    <div id="mainMenu" class="card">
+        <h1>DLS 2026</h1>
+        
+        <a href="classement.html" class="menu-btn">
+            <span class="emoji">📊</span> CLASSEMENT
+        </a>
+        
+        <a href="matchs.html" class="menu-btn">
+            <span class="emoji">📅</span> MATCHS & RESULTATS
+        </a>
+        
+        <a href="envoyer-score.html" class="menu-btn">
+            <span class="emoji">📤</span> Envoyer Score
+        </a>
+        
+        <a href="recompenses.html" class="menu-btn">
+            <span class="emoji">🏅</span> RÉCOMPENSES
+        </a>
+
+        <p onclick="deconnexion()" style="font-size:0.8rem; color:#aaa; cursor:pointer; margin-top:15px;">🔒 Déconnexion</p>
+    </div>
+
+    <script>
+        const codesValides = [
+            "TITAN_2026", "BETA_99", "PHOENIX_X", "JDKING_07", "SHARK_44", 
+            "GALAXY_ST", "DRAGON_88", "LIONS_QR", "COSMOS_Z", "PANTHER_K", 
+            "NOVA_55", "BULLS_RD", "EAGLE_FLY", "VIKING_R", "SKULL_B"
+        ];
+
+        // Vérifie si déjà connecté
+        if (sessionStorage.getItem('dls_auth') === 'true') {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('mainMenu').style.display = 'block';
+        }
+
+        function validerConnexion() {
+            const saisie = document.getElementById('passCode').value;
+            if (codesValides.includes(saisie)) {
+                sessionStorage.setItem('dls_auth', 'true');
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('mainMenu').style.display = 'block';
+            } else {
+                alert("Code incorrect !");
+            }
+        }
+
+        function deconnexion() {
+            sessionStorage.clear();
+            location.reload();
+        }
+    </script>
 
 </body>
 </html>
